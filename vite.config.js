@@ -38,6 +38,7 @@ if (host === "localhost") {
 }
 
 export default defineConfig({
+  root : ".",
   server: {
     allowedHosts: [host],
     cors: {
