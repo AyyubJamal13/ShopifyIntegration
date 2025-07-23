@@ -6,6 +6,15 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 
+// Add necessary headers to allow Shopify to embed your app in an iframe
+export const headers = () => {
+  return {
+    "Content-Security-Policy":
+      "frame-ancestors https://admin.shopify.com https://*.myshopify.com;",
+    "X-Frame-Options": "ALLOWALL",
+  };
+};
+
 export default function App() {
   return (
     <html>
