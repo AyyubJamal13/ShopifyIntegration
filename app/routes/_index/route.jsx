@@ -1,6 +1,5 @@
 import { redirect } from "@remix-run/node";
 import { Form, useLoaderData } from "@remix-run/react";
-import { login } from "../../shopify.server";
 import styles from "./styles.module.css";
 
 export const loader = async ({ request }) => {
@@ -11,8 +10,10 @@ export const loader = async ({ request }) => {
     return redirect(`/app?${url.searchParams.toString()}`);
   }
 
-  // no shop param — show landing page (for marketing or install link)
-  return { showForm: true };
+  // ✅ Only import this on the server
+  const { login } = await import("../../shopify.server");
+
+  return { showForm: Boolean(login) };
 };
 
 export default function App() {
