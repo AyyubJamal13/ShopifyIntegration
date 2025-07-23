@@ -5,13 +5,14 @@ import styles from "./styles.module.css";
 
 export const loader = async ({ request }) => {
   const url = new URL(request.url);
+  const shop = url.searchParams.get("shop");
 
-  if (url.searchParams.get("shop")) {
-    throw redirect(`/app?${url.searchParams.toString()}`);
+  if (shop) {
+    return redirect(`/app?${url.searchParams.toString()}`);
   }
 
-  redirect()
-  return { showForm: Boolean(login) };
+  // no shop param — show landing page (for marketing or install link)
+  return { showForm: true };
 };
 
 export default function App() {
