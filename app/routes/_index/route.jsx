@@ -1,8 +1,6 @@
 import { redirect } from "@remix-run/node";
 import { Form, useLoaderData } from "@remix-run/react";
 import styles from "./styles.module.css";
-
-import { redirect } from "@remix-run/node";
 import { login, sessionStorage } from "../../shopify.server";
 
 export const loader = async ({ request }) => {
