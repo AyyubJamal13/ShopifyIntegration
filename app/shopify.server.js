@@ -33,23 +33,23 @@ const shopify = shopifyApp({
     : {}),
 
   hooks: {
-    afterAuth: async ({ session, admin }) => {
-    console.log("✅ Store:", session.shop);
-    console.log("🔑 Access Token:", session.accessToken);
+    // afterAuth: async ({ session, admin }) => {
+    // console.log("✅ Store:", session.shop);
+    // console.log("🔑 Access Token:", session.accessToken);
 
-    const webhookTopics = [
-        { topic: "products/create", path: "products-create" },
-        { topic: "products/update", path: "products-update" },
-      ];
+    // const webhookTopics = [
+    //     { topic: "products/create", path: "products-create" },
+    //     { topic: "products/update", path: "products-update" },
+    //   ];
 
-      for (const { topic, path } of webhookTopics) {
-        await registerWebhookManually({
-          session,
-          topic,
-          address: `${WEBHOOK_BASE_URL}/webhook/${path}`,
-        });
-      }
-    }
+    //   for (const { topic, path } of webhookTopics) {
+    //     await registerWebhookManually({
+    //       session,
+    //       topic,
+    //       address: `${WEBHOOK_BASE_URL}/webhook/${path}`,
+    //     });
+    //   }
+    // }
   },
 });
 
