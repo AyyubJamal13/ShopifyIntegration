@@ -1,30 +1,18 @@
 import { redirect } from "@remix-run/node";
 import { Form, useLoaderData } from "@remix-run/react";
 import styles from "./styles.module.css";
-import { login, sessionStorage } from "../../shopify.server";
+import { login, authenticate } from "../../shopify.server";
 
 export const loader = async ({ request }) => {
   const url = new URL(request.url);
   const shop = url.searchParams.get("shop");
 
-  // If there's no shop param, just show the login form
-  if (!shop) {
-    return { showForm: Boolean(login) };
-  }
-
-  // If there's a shop param, check for an existing session
-  const session = await sessionStorage.loadCurrentSession(
-    request,
-    new Response(),
-    true
-  );
-
-  if (!session) {
-    // No session, redirect to /auth
+  try {
+  await authenticate.admin({ request });
+  } catch (error) {
     throw redirect(`/auth?shop=${shop}`);
   }
 
-  // Session exists, redirect to your app dashboard or page
   throw redirect(`/app?${url.searchParams.toString()}`);
 };
 
